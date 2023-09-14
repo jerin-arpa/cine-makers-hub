@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Cart from "../Cart/Cart";
+import './Home.css'
 
 
 const Home = () => {
@@ -16,23 +17,32 @@ const Home = () => {
 
 
     const handleSelectActor = (actor) => {
-        const newSelectedActors = [...selectedActors, actor];
-        setSelectedActors(newSelectedActors);
+
+        const isExist = selectedActors.find(item => item.id === actor.id);
+        if (isExist) {
+            return alert("Already Booked")
+        }
+        else {
+            const newSelectedActors = [...selectedActors, actor];
+            setSelectedActors(newSelectedActors);
+        }
+
     }
+
 
     return (
         <div>
-            <h1 className="text-4xl font-bold text-center my-5">BPL Team Maker</h1>
+            <h1 className="text-4xl font-bold text-center my-5">Cine Makers Hub</h1>
             <hr className="mb-5" />
 
             {/* body */}
-            <div className="flex gap-5 my-10">
+            <div className="flex flex-col-reverse md:flex-row lg:flex-row gap-5 my-10">
                 {/* card-container */}
-                <div className="w-2/3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="w-full md:w-4/5 lg:w-4/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {/* card */}
                     {
                         allActors.map(actor => (
-                            <div key={actor.id} className="p-5 py-10 shadow-xl rounded-2xl">
+                            <div key={actor.id} className="p-5 py-10 border-2 border-gray-300 rounded-lg">
                                 {/* card image */}
                                 <div className="flex justify-center">
                                     <img className="w-20 rounded-full" src={actor.image} alt="" />
@@ -52,7 +62,7 @@ const Home = () => {
                 </div>
 
                 {/* Cart container */}
-                <div className="w-1/3">
+                <div className="w-full md:w-1/5 lg:w-1/5">
                     <Cart selectedActors={selectedActors}></Cart>
                 </div>
             </div>

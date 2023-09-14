@@ -5,15 +5,19 @@ const Cart = ({ selectedActors }) => {
 
     return (
         <div>
-            <h1>Thi is Cart</h1>
+            <h1 className='text-center text-xl font-bold mb-5'>Total Actors: {selectedActors.length}</h1>
 
-            {
-                selectedActors.map((actor, idx) => (
-                    <div key={idx}>
-                        <li>{actor.name}</li>
-                    </div>
-                ))
-            }
+            <div className='flex justify-center'>
+                <div>
+                    {
+                        selectedActors.map((actor, idx) => (
+                            <div key={idx}>
+                                <li>{actor.name}</li>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
     );
 };
