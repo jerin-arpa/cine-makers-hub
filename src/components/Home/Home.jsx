@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import Cart from "../Cart/Cart";
 
 
 const Home = () => {
 
     const [allActors, setAllActors] = useState([]);
+    const [selectedActors, setSelectedActors] = useState([]);
+
 
     useEffect(() => {
         fetch("./data.json")
@@ -13,10 +16,9 @@ const Home = () => {
 
 
     const handleSelectActor = (actor) => {
-        console.log(actor)
+        const newSelectedActors = [...selectedActors, actor];
+        setSelectedActors(newSelectedActors);
     }
-
-    console.log(allActors);
 
     return (
         <div>
@@ -51,7 +53,7 @@ const Home = () => {
 
                 {/* Cart container */}
                 <div className="w-1/3">
-                    <h1>This is cart</h1>
+                    <Cart selectedActors={selectedActors}></Cart>
                 </div>
             </div>
         </div>
