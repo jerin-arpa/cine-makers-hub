@@ -7,6 +7,8 @@ const Home = () => {
 
     const [allActors, setAllActors] = useState([]);
     const [selectedActors, setSelectedActors] = useState([]);
+    const [remaining, setRemaining] = useState(0);
+    const [totalCost, setTotalCost] = useState(0);
 
 
     useEffect(() => {
@@ -17,14 +19,30 @@ const Home = () => {
 
 
     const handleSelectActor = (actor) => {
-
         const isExist = selectedActors.find(item => item.id === actor.id);
+        let count = actor.salary;
+
         if (isExist) {
             return alert("Already Booked")
         }
         else {
-            const newSelectedActors = [...selectedActors, actor];
-            setSelectedActors(newSelectedActors);
+
+            selectedActors.forEach(item => {
+                count += item.salary;
+            })
+
+            const totalRemaining = 30000 - count;
+
+            if (count > 30000) {
+                return alert('You reach your limit');
+            }
+            else {
+                setTotalCost(count);
+                setRemaining(totalRemaining);
+
+                const newSelectedActors = [...selectedActors, actor];
+                setSelectedActors(newSelectedActors);
+            }
         }
 
     }
@@ -63,7 +81,7 @@ const Home = () => {
 
                 {/* Cart container */}
                 <div className="w-full md:w-1/5 lg:w-1/5">
-                    <Cart selectedActors={selectedActors}></Cart>
+                    <Cart selectedActors={selectedActors} remaining={remaining} totalCost={totalCost}></Cart>
                 </div>
             </div>
         </div>
